@@ -71,8 +71,10 @@ class FavoriteFoodProvider {
     var database = await Repository.instance.getHandle();
 
     if (!shouldBeFavorite) {
-      await database.delete(Tables.favoriteFoods, where: 'foodName = $name');
+      favoriteFoods.remove(name);
+      await database.delete(Tables.favoriteFoods, where: 'foodName = ?', whereArgs: [name]);
     } else {
+      favoriteFoods[name] = true;
       await database.insert(Tables.favoriteFoods, { 'foodName': name });
     }
   }

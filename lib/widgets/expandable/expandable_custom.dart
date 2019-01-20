@@ -17,9 +17,9 @@ class ExpandableCustom extends StatefulWidget {
     this.crossAxisAlignment,
     ValueNotifier collapseController,
     bool isEnabled = true,
-    bool initial = false
+    bool isCollapsedByDefault = false
   }) :
-      this.isCollapsed = collapseController ?? new ValueNotifier(initial),
+      this.isCollapsed = collapseController ?? new ValueNotifier(isCollapsedByDefault),
       this.isEnabled = new ValueNotifier(isEnabled),
       super(key: key);
 

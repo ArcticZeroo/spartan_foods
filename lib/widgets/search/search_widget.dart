@@ -32,13 +32,10 @@ class SearchWidget extends StatefulWidget {
     }
 
     for (var filter in filters.values) {
+      filter.current.value = filter.defaultValue;
+
       if (filter is StringQueryFilter) {
         filter.controller.clear();
-        continue;
-      }
-
-      if (filter is BooleanQueryFilter) {
-        filter.current.value = filter.defaultValue;
         continue;
       }
     }

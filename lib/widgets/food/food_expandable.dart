@@ -3,6 +3,7 @@ import 'package:spartan_foods/models/food/menu_item.dart';
 import 'package:spartan_foods/models/food/menu_item_settings.dart';
 import 'package:spartan_foods/widgets/expandable/expandable_custom.dart';
 import 'package:spartan_foods/widgets/expandable/value_notifier_toggle_icon.dart';
+import 'package:spartan_foods/widgets/food/expanded/food_expanded_actions.dart';
 import 'package:spartan_foods/widgets/food/food_list_item.dart';
 
 class FoodExpandable extends StatefulWidget {
@@ -23,7 +24,8 @@ class _FoodExpandableState extends State<FoodExpandable> {
 
     _expandableCustom = ExpandableCustom(
       title: Builder(builder: buildTitle),
-      body: Text('Yeah this is here I guess')
+      body: FoodExpandedActions(widget.item),
+      isCollapsedByDefault: true
     );
   }
 
