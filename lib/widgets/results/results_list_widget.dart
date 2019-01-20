@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spartan_foods/models/food/FoodResultItem.dart';
-import 'package:spartan_foods/widgets/food/FoodResultInfoWidget.dart';
+import 'package:spartan_foods/models/food/food_result_item.dart';
+import 'package:spartan_foods/widgets/food/food_result_info_widget.dart';
 
 class ResultsListWidget extends StatelessWidget {
   final List<FoodResultItem> results;

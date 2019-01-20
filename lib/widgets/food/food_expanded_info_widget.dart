@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:spartan_foods/models/food/FoodItemSettings.dart';
+import 'package:spartan_foods/models/food/food_item_settings.dart';
 
 typedef void ToggleChange(bool value);
 

@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
-
-import 'package:spartan_foods/models/food/FoodNotificationSettings.dart';
+import 'package:spartan_foods/models/food/food_notification_settings.dart';
 
 class FoodItemSettings {
   static final RegExp nameRegex = new RegExp(r'^(.+?)(?:\s+\(.+\))?$');

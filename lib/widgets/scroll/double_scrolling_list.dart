@@ -9,7 +9,7 @@ class DoubleScrollingListWidget extends StatelessWidget {
   final ValueNotifier<bool> _isScrollEnabled = ValueNotifier(false);
   // final DoubleScrollController _scrollController = DoubleScrollController();
 
-  const DoubleScrollingListWidget({Key key, this.primaryWidget, this.secondaryWidget}) : super(key: key);
+  DoubleScrollingListWidget({Key key, this.primaryWidget, this.secondaryWidget}) : super(key: key);
 
   void setScrollEnabled(bool value) {
     this._isScrollEnabled.value =  value;
