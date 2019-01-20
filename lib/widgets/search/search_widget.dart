@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:spartan_foods/constants/MenuQuery.dart';
 import 'package:spartan_foods/models/food/meal.dart';
+import 'package:spartan_foods/models/food/menu_item.dart';
 import 'package:spartan_foods/models/query/menu_query_builder.dart';
 import 'package:spartan_foods/models/query/query_filter.dart';
+import 'package:spartan_foods/pages/result/result_page.dart';
+import 'package:spartan_foods/request/menu_query_client.dart';
+import 'package:spartan_foods/widgets/button/future_button.dart';
 import 'package:spartan_foods/widgets/container/rounded_indicator.dart';
 
-class SearchWidget extends StatelessWidget {
-  static final Map<String, QueryFilter> filters = {
+class SearchWidget extends StatefulWidget {
+  Map<String, QueryFilter> filters = {
     '${MenuQuery.foodName}': StringQueryFilter('Food Name'),
     '${MenuQuery.prefGlutenFree}': BooleanQueryFilter('Gluten Free'),
     '${MenuQuery.prefVegetarian}': BooleanQueryFilter('Vegetarian'),
@@ -19,6 +23,26 @@ class SearchWidget extends StatelessWidget {
 
   Widget get verticalSpacer =>
       Padding(padding: EdgeInsets.symmetric(vertical: 12.0));
+
+  reset() {
+    print('resetting');
+
+    if (filters == null) {
+      return;
+    }
+
+    for (var filter in filters.values) {
+      if (filter is StringQueryFilter) {
+        filter.controller.clear();
+        continue;
+      }
+
+      if (filter is BooleanQueryFilter) {
+        filter.current.value = filter.defaultValue;
+        continue;
+      }
+    }
+  }
 
   MenuQueryBuilder aggregateFilters() {
     var builder = new MenuQueryBuilder();
@@ -54,12 +78,12 @@ class SearchWidget extends StatelessWidget {
     if (isLunch != null && isLunch) {
       meals.add(Meal.lunch.ordinal);
     }
-    
+
     var isDinner = filters[MenuQuery.mealDinner].current.value;
     if (isDinner != null && isDinner) {
       meals.add(Meal.dinner.ordinal);
     }
-    
+
     var isLateNight = filters[MenuQuery.mealLateNight].current.value;
     if (isLateNight != null && isLateNight) {
       meals.add(Meal.lateNight.ordinal);
@@ -77,12 +101,26 @@ class SearchWidget extends StatelessWidget {
   }
 
   @override
+  State<StatefulWidget> createState() => _SearchWidgetState();
+}
+
+class _SearchWidgetState extends State<SearchWidget> {
+  void openResults(BuildContext context, List<MenuItem> results) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (ctx) => ResultPage(results)));
+
+    setState(widget.reset);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var filters = widget.filters;
+
     return Container(
       padding: EdgeInsets.all(16),
       child: Column(children: <Widget>[
         filters[MenuQuery.foodName],
-        verticalSpacer,
+        widget.verticalSpacer,
         RoundedIndicator(
           text: 'Eating Preferences',
           backgroundColor: Colors.green[700],
@@ -90,7 +128,7 @@ class SearchWidget extends StatelessWidget {
         filters[MenuQuery.prefGlutenFree],
         filters[MenuQuery.prefVegetarian],
         filters[MenuQuery.prefVegan],
-        verticalSpacer,
+        widget.verticalSpacer,
         RoundedIndicator(
           text: 'Meal',
           backgroundColor: Colors.green[700],
@@ -99,10 +137,11 @@ class SearchWidget extends StatelessWidget {
         filters[MenuQuery.mealLunch],
         filters[MenuQuery.mealDinner],
         filters[MenuQuery.mealLateNight],
-        RaisedButton(
-            onPressed: this.onSubmitPress,
-            child: Text('Search'),
-            color: Colors.green[200])
+        FutureButton(
+          child: Text('Search', style: TextStyle(color: Colors.white)),
+          getFutureOnClick: () => MenuQueryClient.search(widget.aggregateFilters())
+            .then((data) => openResults(context, data))
+        )
       ]),
     );
   }

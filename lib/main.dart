@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:spartan_foods/pages/home/query_page.dart';
+import 'package:spartan_foods/provider/dining_hall_provider.dart';
 import 'package:spartan_foods/provider/favorite_food_provider.dart';
 
 void main() {
   var loadFavoriteFood = FavoriteFoodProvider.instance.retrieveFavoriteFoods();
+  var loadDiningHalls = DiningHallProvider.instance.retrieveDiningHalls();
 
   Future.wait([
-    loadFavoriteFood
+    loadFavoriteFood,
+    loadDiningHalls
   ]).whenComplete(() {
     runApp(SpartanFoodsApp());
   });
@@ -21,8 +24,6 @@ class SpartanFoodsApp extends StatelessWidget {
         accentColor: Colors.greenAccent
       ),
       title: 'Spartan Foods',
-      routes: {
-        '/': (ctx) => QueryPage()
-      },
+      home: QueryPage()
     );
 }

@@ -12,6 +12,7 @@ class StringFilterDisplay extends IQueryFilterWidget<String> {
         horizontal: 24.0
       ),
       child: TextField(
+        controller: (filter as StringQueryFilter).controller,
         decoration: InputDecoration(
           hintText: filter.name
         ),

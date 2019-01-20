@@ -23,12 +23,12 @@ abstract class QueryFilter<T> extends StatelessWidget implements ISerializable<T
 }
 
 class StringQueryFilter extends QueryFilter<String> {
+  final TextEditingController controller = TextEditingController();
+
   StringQueryFilter(String name): super(
     name: name,
     display: QueryFilterDisplay.string
-  ) {
-    print('Creating new filter');
-  }
+  );
 
   @override
   String serialize(String value) => value;

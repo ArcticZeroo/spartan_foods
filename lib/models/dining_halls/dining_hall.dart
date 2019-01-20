@@ -1,7 +1,7 @@
-import 'package:spartan_foods/models/dining_halls/dining-hall-hours.dart';
+import 'package:spartan_foods/models/dining_halls/dining_hall_hours.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'dining-hall.g.dart';
+part 'dining_hall.g.dart';
 
 @JsonSerializable()
 class DiningHall {

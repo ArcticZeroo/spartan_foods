@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dining-hall.dart';
+part of 'dining_hall.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
