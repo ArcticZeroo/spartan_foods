@@ -11,7 +11,7 @@ class Repository {
   static final instance = Repository._internal();
 
   static final Map<String, String> _createTableQueries = {
-    '${Tables.favoriteFoods}': 'foodName TEXT PRIMARY KEY'
+    '${Tables.favoriteFoods}': 'cleanedName TEXT PRIMARY KEY, displayName TEXT'
   };
 
   static String getCreateQuery(String tableName, String schema) => 'CREATE TABLE IF NOT EXISTS $tableName ($schema)';

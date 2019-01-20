@@ -12,11 +12,22 @@ class SettingsPage extends StatelessWidget {
         title: Text('Your favorite food'),
         subtitle: Text(
             'Add food to your favorites for quick searching and notifications for its next appearance!'),
-      )
+      ),
+      Divider(height: 4.0)
     ];
 
-    for (var key in FavoriteFoodProvider.instance.favoriteFoods.keys) {
-      bodyWidgets.add(FavoriteSettingsRow(key));
+    if (FavoriteFoodProvider.instance.favoriteFoodsCleanedToDisplayName.isEmpty) {
+      bodyWidgets.add(Container(
+        child: Text('You don\'t have any favorite foods added! Go search some to add them.', textAlign: TextAlign.center),
+        padding: EdgeInsets.all(12.0)
+      ));
+    } else {
+      for (var entry in FavoriteFoodProvider.instance.favoriteFoodsCleanedToDisplayName.entries) {
+        bodyWidgets.add(FavoriteSettingsRow(
+          cleanedName: entry.key,
+          displayName: entry.value
+        ));
+      }
     }
 
     return Scaffold(

@@ -4,25 +4,25 @@ import 'package:spartan_foods/pages/result/result_page.dart';
 import 'package:spartan_foods/request/menu_query_client.dart';
 
 class FavoriteSettingsRow extends StatelessWidget {
-  final String nameCleaned;
+  final String cleanedName;
+  final String displayName;
 
-  FavoriteSettingsRow(this.nameCleaned);
+  FavoriteSettingsRow({@required this.cleanedName, @required this.displayName});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
         onTap: () {
           MenuQueryClient.search(
-            new MenuQueryBuilder().nameCleaned(nameCleaned))
-            .then((data) {
+                  new MenuQueryBuilder().nameCleaned(cleanedName))
+              .then((data) {
             var navigator = Navigator.of(context);
             navigator.pop();
             navigator
-              .push(MaterialPageRoute(builder: (ctx) => ResultPage(data)));
+                .push(MaterialPageRoute(builder: (ctx) => ResultPage(data)));
           });
         },
-      title: Text(nameCleaned),
-      trailing: Icon(Icons.search)
-    );
+        title: Text(displayName),
+        trailing: Icon(Icons.search));
   }
 }

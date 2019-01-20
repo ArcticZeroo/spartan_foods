@@ -20,7 +20,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
     super.initState();
 
     var foodKey = FavoriteFoodProvider.getCleanedName(widget.item.name);
-    isFavorite = FavoriteFoodProvider.instance.favoriteFoods[foodKey] ?? false;
+    isFavorite = FavoriteFoodProvider.instance.favoriteFoodsCleanedToDisplayName.containsKey(foodKey);
   }
 
   onFavoriteToggle() {

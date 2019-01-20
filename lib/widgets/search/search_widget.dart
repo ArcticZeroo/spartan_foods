@@ -25,8 +25,6 @@ class SearchWidget extends StatefulWidget {
       Padding(padding: EdgeInsets.symmetric(vertical: 12.0));
 
   reset() {
-    print('resetting');
-
     if (filters == null) {
       return;
     }

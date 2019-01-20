@@ -8,17 +8,17 @@ class FavoriteFoodProvider {
   static final RegExp cleanNamePattern = new RegExp(r'[^\w]');
   static final instance = new FavoriteFoodProvider._internal();
 
-  Map<String, bool> favoriteFoods = {};
+  Map<String, String> favoriteFoodsCleanedToDisplayName = {};
 
-  FavoriteFoodProvider._internal() {}
+  FavoriteFoodProvider._internal();
 
   static String getCleanedName(String name) {
     return FoodUtil.getCleanedName(name);
   }
 
   Future<List<String>> retrieveFavoriteFoods() async {
-    if (favoriteFoods.isNotEmpty) {
-      return favoriteFoods.keys.toList();
+    if (favoriteFoodsCleanedToDisplayName.isNotEmpty) {
+      return favoriteFoodsCleanedToDisplayName.keys.toList();
     }
 
     var database = await Repository.instance.getHandle();
@@ -28,14 +28,15 @@ class FavoriteFoodProvider {
     List<String> favorites = [];
 
     for (var row in result) {
-      if (!row.containsKey('foodName')) {
+      if (!row.containsKey('cleanedName') || !row.containsKey('displayName')) {
         continue;
       }
 
-      var foodName = row['foodName'];
+      var foodName = row['cleanedName'];
+      var displayName = row['displayName'];
 
       favorites.add(foodName);
-      favoriteFoods[foodName] = true;
+      favoriteFoodsCleanedToDisplayName[foodName] = displayName;
     }
 
     return favorites;
@@ -44,25 +45,21 @@ class FavoriteFoodProvider {
   Future<bool> isFavorite(MenuItem item) async {
     await retrieveFavoriteFoods();
 
-    var name = getCleanedName(item.name);
+    var cleanedName = getCleanedName(item.name);
 
-    if (!favoriteFoods.containsKey(name)) {
-      return false;
-    }
-
-    return favoriteFoods[name];
+    return favoriteFoodsCleanedToDisplayName.containsKey(cleanedName);
   }
 
   Future setFavorite(MenuItem item, bool shouldBeFavorite) async {
-    var name = getCleanedName(item.name);
+    var cleanedName = getCleanedName(item.name);
     var database = await Repository.instance.getHandle();
 
     if (!shouldBeFavorite) {
-      favoriteFoods.remove(name);
-      await database.delete(Tables.favoriteFoods, where: 'foodName = ?', whereArgs: [name]);
+      favoriteFoodsCleanedToDisplayName.remove(cleanedName);
+      await database.delete(Tables.favoriteFoods, where: 'cleanedName = ?', whereArgs: [cleanedName]);
     } else {
-      favoriteFoods[name] = true;
-      await database.insert(Tables.favoriteFoods, { 'foodName': name });
+      favoriteFoodsCleanedToDisplayName[cleanedName] = item.name;
+      await database.insert(Tables.favoriteFoods, { 'cleanedName': cleanedName, 'displayName': item.name });
     }
   }
 }
