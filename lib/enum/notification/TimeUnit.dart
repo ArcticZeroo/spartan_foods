@@ -1,0 +1,4 @@
+enum TimeUnit {
+  day,
+  week
+}

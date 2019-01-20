@@ -1,0 +1,4 @@
+enum ScrollLocation {
+  start,
+  end
+}
