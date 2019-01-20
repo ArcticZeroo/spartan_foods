@@ -6,7 +6,7 @@ class DiningHallHours {
   final bool closed;
   final double begin;
   final double end;
-  final Meal meal;
+  final MealType meal;
 
   TimeOfDay get beginTime => TimeUtil.timeFromHour(begin);
   TimeOfDay get endTime => TimeUtil.timeFromHour(end);

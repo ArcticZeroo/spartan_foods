@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'food_result_item.dart';
+part of 'menu_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FoodResultItem _$FoodResultItemFromJson(Map<String, dynamic> json) {
-  return FoodResultItem(
+MenuItem _$MenuItemFromJson(Map<String, dynamic> json) {
+  return MenuItem(
       name: json['name'] as String,
       venue: json['venue'] as String,
       diningHall: json['diningHall'] as String,
@@ -21,7 +21,7 @@ FoodResultItem _$FoodResultItemFromJson(Map<String, dynamic> json) {
       formattedDate: json['formattedDate'] as String);
 }
 
-Map<String, dynamic> _$FoodResultItemToJson(FoodResultItem instance) =>
+Map<String, dynamic> _$MenuItemToJson(MenuItem instance) =>
     <String, dynamic>{
       'name': instance.name,
       'venue': instance.venue,

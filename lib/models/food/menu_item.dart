@@ -3,10 +3,10 @@ import 'package:meta/meta.dart';
 import 'package:spartan_foods/models/dining_halls/dining-hall.dart';
 import 'package:spartan_foods/models/date/MenuDate.dart';
 
-part 'food_result_item.g.dart';
+part 'menu_item.g.dart';
 
 @JsonSerializable()
-class FoodResultItem {
+class MenuItem {
   final String name;
   final String venue;
   final String diningHall;
@@ -18,7 +18,7 @@ class FoodResultItem {
   final int meal;
   final String formattedDate;
 
-  FoodResultItem({
+  MenuItem({
     @required this.name,
     @required this.venue,
     @required this.diningHall,
@@ -31,6 +31,6 @@ class FoodResultItem {
     @required this.formattedDate
   });
 
-  factory FoodResultItem.fromJson(Map<String, dynamic> json) => _$FoodResultItemFromJson(json);
-  Map<String, dynamic> toJson() => _$FoodResultItemToJson(this);
+  factory MenuItem.fromJson(Map<String, dynamic> json) => _$MenuItemFromJson(json);
+  Map<String, dynamic> toJson() => _$MenuItemToJson(this);
 }

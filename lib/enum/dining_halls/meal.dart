@@ -1,4 +1,4 @@
-enum Meal {
+enum MealType {
   breakfast,
   lunch,
   dinner,

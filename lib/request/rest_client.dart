@@ -8,7 +8,14 @@ class RestClient {
   RestClient([this.baseUrl = '']);
 
   Future<dynamic> get(String url, [bool jsonDecode = true]) async {
-    http.Response res = await http.get(baseUrl + url);
+    http.Response res;
+
+    try {
+      res = await http.get(baseUrl + url);
+    } catch (e) {
+      print(e);
+      throw e;
+    }
 
     if (res.statusCode < 200 || res.statusCode >= 300) {
       throw new Exception('Request to $url unsuccessful: ${res.statusCode}');

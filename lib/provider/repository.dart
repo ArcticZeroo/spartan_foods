@@ -14,7 +14,7 @@ class Repository {
     '${Tables.favoriteFoods}': 'foodName TEXT PRIMARY KEY'
   };
 
-  static String getCreateQuery(String tableName, String schema) => 'CREATE TABLE IF NOT EXISTS $tableName $schema';
+  static String getCreateQuery(String tableName, String schema) => 'CREATE TABLE IF NOT EXISTS $tableName ($schema)';
 
   bool _initialized = false;
   Lock _lock = new Lock();

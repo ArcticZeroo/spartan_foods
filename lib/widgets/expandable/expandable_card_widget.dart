@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:spartan_foods/widgets/card/material_card.dart';
 
-class ExpandableWidget extends StatefulWidget {
+class ExpandableCardWidget extends StatefulWidget {
   final Widget title;
   final Widget body;
   final Color backgroundColor;
   final Color arrowColor;
   final ValueNotifier<bool> isCollapsed;
 
-  ExpandableWidget({
+  ExpandableCardWidget({
     Key key,
     @required
     this.title,
@@ -22,13 +22,13 @@ class ExpandableWidget extends StatefulWidget {
       super(key: key);
 
   @override
-  _ExpandableWidgetState createState() => _ExpandableWidgetState();
+  _ExpandableCardWidgetState createState() => _ExpandableCardWidgetState();
 }
 
-class _ExpandableWidgetState extends State<ExpandableWidget> with SingleTickerProviderStateMixin {
+class _ExpandableCardWidgetState extends State<ExpandableCardWidget> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
 
-  _ExpandableWidgetState() {
+  _ExpandableCardWidgetState() {
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 100)
