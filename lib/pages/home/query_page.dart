@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spartan_foods/pages/settings/settings_page.dart';
 import 'package:spartan_foods/widgets/search/search_widget.dart';
 
 class QueryPage extends StatelessWidget {
@@ -16,9 +17,14 @@ class QueryPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           pinned: true,
           actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 16.0),
-                child: Icon(Icons.settings, color: Colors.black))
+            IconButton(
+              icon: Icon(Icons.settings, color: Colors.black),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (ctx) => SettingsPage()
+                ));
+              },
+            )
           ],
           elevation: 0.0,
         ),

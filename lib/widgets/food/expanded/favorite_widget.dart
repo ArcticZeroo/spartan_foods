@@ -19,7 +19,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
   void initState() {
     super.initState();
 
-    var foodKey = FavoriteFoodProvider.getFavoriteName(widget.item.name);
+    var foodKey = FavoriteFoodProvider.getCleanedName(widget.item.name);
     isFavorite = FavoriteFoodProvider.instance.favoriteFoods[foodKey] ?? false;
   }
 

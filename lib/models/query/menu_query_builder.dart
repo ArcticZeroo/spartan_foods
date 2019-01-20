@@ -7,6 +7,12 @@ class MenuQueryBuilder {
     return this;
   }
 
+  MenuQueryBuilder nameCleaned(String value) {
+    _values['nameCleaned'] = value;
+
+    return this;
+  }
+
   MenuQueryBuilder meal(int meal) {
     _values['meal'] = meal;
 

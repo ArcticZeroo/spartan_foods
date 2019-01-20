@@ -1,6 +1,7 @@
 import 'package:spartan_foods/constants/Tables.dart';
 import 'package:spartan_foods/models/food/menu_item.dart';
 import 'package:spartan_foods/provider/repository.dart';
+import 'package:spartan_foods/util/FoodUtil.dart';
 
 class FavoriteFoodProvider {
   static final RegExp nameRegex = new RegExp(r'^(.+?)(?:\s+\(.+\))?$');
@@ -11,22 +12,8 @@ class FavoriteFoodProvider {
 
   FavoriteFoodProvider._internal() {}
 
-  static String getFavoriteName(String name) {
-    if (!nameRegex.hasMatch(name)) {
-      return null;
-    }
-
-    var match = nameRegex.firstMatch(name);
-
-    if (match.groupCount < 1) {
-      return null;
-    }
-
-    var matchedName = match.group(1);
-
-    // Name With Spaces -> namewithspaces
-    // Spencer's Name -> spencersname
-    return matchedName.toLowerCase().replaceAll(cleanNamePattern, '');
+  static String getCleanedName(String name) {
+    return FoodUtil.getCleanedName(name);
   }
 
   Future<List<String>> retrieveFavoriteFoods() async {
@@ -57,7 +44,7 @@ class FavoriteFoodProvider {
   Future<bool> isFavorite(MenuItem item) async {
     await retrieveFavoriteFoods();
 
-    var name = getFavoriteName(item.name);
+    var name = getCleanedName(item.name);
 
     if (!favoriteFoods.containsKey(name)) {
       return false;
@@ -67,7 +54,7 @@ class FavoriteFoodProvider {
   }
 
   Future setFavorite(MenuItem item, bool shouldBeFavorite) async {
-    var name = getFavoriteName(item.name);
+    var name = getCleanedName(item.name);
     var database = await Repository.instance.getHandle();
 
     if (!shouldBeFavorite) {
